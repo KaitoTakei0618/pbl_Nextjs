@@ -1,5 +1,5 @@
 import Link from "next/link";
-
+import { Button } from "@chakra-ui/react";
 export default function Home() {
   return (
     <div>
@@ -11,6 +11,7 @@ export default function Home() {
         大学の課題・授業をまとめて管理します。
       </p>
 
+      
       <div className="mt-8 grid gap-6 md:grid-cols-2">
         <Link
           href="/tasks"
