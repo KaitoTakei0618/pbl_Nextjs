@@ -1,10 +1,33 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
+
+import {
+  Box,
+  Button,
+  CloseButton,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
 
 export default function Header() {
   const [isAboutOpen, setIsAboutOpen] = useState(false);
+
+  // Escキーで閉じる
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsAboutOpen(false);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
 
   return (
     <header className="relative border-b bg-white">
@@ -14,66 +37,128 @@ export default function Header() {
         </Link>
 
         <nav className="flex items-center gap-6">
-          <Link href="/tasks">Tasks</Link>
-          <Link href="/courses">Courses</Link>
-          
-          <button
+          <Link href="/tasks">
+            Tasks
+          </Link>
+
+          <Link href="/courses">
+            Courses
+          </Link>
+
+          <Button
+            variant="outline"
+            size="md"
             onClick={() => setIsAboutOpen(!isAboutOpen)}
-            className="rounded-lg border px-3 py-2 hover:bg-gray-100"
-            aria-expanded={isAboutOpen}
           >
             About Me
-          </button>
+          </Button>
         </nav>
       </div>
 
       {isAboutOpen && (
-        <div className="absolute right-6 top-full z-50 mt-2 w-80 rounded-xl border bg-white p-5 shadow-lg">
-          <div className="flex items-start justify-between">
-            <div>
-              <h2 className="text-lg font-bold">About Me</h2>
-              <p className="mt-1 text-sm text-gray-500">
-                このサイトの作成者について
-              </p>
-            </div>
+        <>
+          {/* 外側クリック検出用の透明レイヤー */}
+          <Box
+            position="fixed"
+            inset="0"
+            zIndex="40"
+            onClick={() => setIsAboutOpen(false)}
+          />
 
-            <button
+          {/* About Me */}
+          <Box
+            position="absolute"
+            top="calc(100% + 8px)"
+            right="24px"
+            zIndex="50"
+            width="320px"
+            bg="white"
+            borderWidth="1px"
+            borderRadius="xl"
+            boxShadow="lg"
+            p="5"
+          >
+            <CloseButton
+              position="absolute"
+              top="2"
+              right="2"
+              size="sm"
               onClick={() => setIsAboutOpen(false)}
-              className="text-xl text-gray-500 hover:text-black"
-              aria-label="閉じる"
-            >
-              ×
-            </button>
-          </div>
+            />
 
-          <div className="mt-5 space-y-3 text-sm">
-            <div>
-              <p className="font-semibold">名前</p>
-              <p className="text-gray-600">武井海渡 prince👑</p>
-            </div>
+            <Box mb="5" pr="8">
+              <Text
+                fontSize="lg"
+                fontWeight="bold"
+              >
+                About Me
+              </Text>
 
-            <div>
-              <p className="font-semibold">所属</p>
-              <p className="text-gray-600">
-                法政大学 理工学部　彌冨lab
-              </p>
-            </div>
+              <Text
+                mt="1"
+                fontSize="sm"
+                color="gray.500"
+              >
+                このサイトの作成者について
+              </Text>
+            </Box>
 
-            <div>
-              <p className="font-semibold">専門分野</p>
-              <p className="text-gray-600">
-                Web開発・機械学習・画像処理など
-              </p>
-            </div>
+            <Stack gap="4">
+              <Box>
+                <Text fontWeight="semibold">
+                  名前
+                </Text>
 
-            <div>
-              <p className="font-semibold">このサイトについて</p>
-              <p className="text-gray-600">
-                大学の課題や学習内容をまとめて管理するために作成しています。
-              </p>
-            </div>
-          </div>
-        </div>
+                <Text
+                  fontSize="sm"
+                  color="gray.600"
+                >
+                  武井海渡 prince👑
+                </Text>
+              </Box>
+
+              <Box>
+                <Text fontWeight="semibold">
+                  所属
+                </Text>
+
+                <Text
+                  fontSize="sm"
+                  color="gray.600"
+                >
+                  法政大学 理工学部　彌冨lab
+                </Text>
+              </Box>
+
+              <Box>
+                <Text fontWeight="semibold">
+                  専門分野
+                </Text>
+
+                <Text
+                  fontSize="sm"
+                  color="gray.600"
+                >
+                  Web開発・機械学習・画像処理など
+                </Text>
+              </Box>
+
+              <Box>
+                <Text fontWeight="semibold">
+                  このサイトについて
+                </Text>
+
+                <Text
+                  fontSize="sm"
+                  color="gray.600"
+                >
+                  大学の課題や学習内容をまとめて
+                  管理するために作成しています。
+                </Text>
+              </Box>
+            </Stack>
+          </Box>
+        </>
       )}
     </header>
   );
