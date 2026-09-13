@@ -28,23 +28,6 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="rounded-lg border bg-white p-6">
-          <h2 className="text-xl font-semibold">
-            Projects
-          </h2>
-          <p className="mt-2 text-gray-600">
-            PBLや研究などの進捗を管理します。
-          </p>
-        </div>
-
-        <div className="rounded-lg border bg-white p-6">
-          <h2 className="text-xl font-semibold">
-            Notes
-          </h2>
-          <p className="mt-2 text-gray-600">
-            学習中に残したメモを確認します。
-          </p>
-        </div>
       </div>
     </div>
   );

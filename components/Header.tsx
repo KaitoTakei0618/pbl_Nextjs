@@ -16,9 +16,7 @@ export default function Header() {
         <nav className="flex items-center gap-6">
           <Link href="/tasks">Tasks</Link>
           <Link href="/courses">Courses</Link>
-          <Link href="/projects">Projects</Link>
-          <Link href="/notes">Notes</Link>
-
+          
           <button
             onClick={() => setIsAboutOpen(!isAboutOpen)}
             className="rounded-lg border px-3 py-2 hover:bg-gray-100"
